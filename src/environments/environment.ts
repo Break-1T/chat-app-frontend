@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  hubConnectionURL: "https://localhost:7242/hub/{{groupId}}",
+  chatApiUrl:"https://localhost:7242",
+  identityServerUrl:"https://localhost:5001/group/create",
 };
 
 /*

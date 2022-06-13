@@ -1,0 +1,13 @@
+<div class="chat_window">
+    <label for="groupIdInput">Enter GroupId</label>
+    <input class="chat.input" name="groupIdInput" type="text" [(ngModel)]="groupId">
+    <br>
+    <label for="userNameInput">Enter UserName</label>
+    <input class="chat.input" name="userNameInput" type="text" [(ngModel)]="userName">
+    <br>
+    <button (click)="StartConnection()">StartConnection</button>
+    <br>
+    <input name="message" type="text" [(ngModel)]="message">
+    <button (click)="SendMessage()">SendMessage</button>
+    <strong>{{ Chat?.messages | json }}</strong>
+</div>
