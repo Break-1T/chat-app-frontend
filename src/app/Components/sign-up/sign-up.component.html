@@ -1,0 +1,33 @@
+<p>sign-up works!</p>
+<form [formGroup]="form">
+  <fieldset>
+      <legend>Sign Up</legend>
+      <div class="form-field">
+          <label>Email:</label>
+          <input name="email" formControlName="email">
+      </div>
+      <div class="form-field">
+          <label>Password:</label>
+          <input name="password" formControlName="password"
+                 type="password">
+      </div>
+      <div class="form-field">
+          <label>UserName:</label>
+          <input name="userName" formControlName="userName"
+                type="text">
+      </div>
+      <div div class="form-field">
+          <label>First name:</label>
+          <input name="firstName" formControlName="firstName"
+                type="text">
+      </div>
+      <div class="form-field">
+          <label>Last name:</label>
+          <input name="lastName" formControlName="lastName"
+            type="text">
+      </div>
+  </fieldset>
+  <div class="form-buttons">
+      <button class="button button-primary" (click)="SugnUp()">SignUp!</button>
+  </div>
+</form>
