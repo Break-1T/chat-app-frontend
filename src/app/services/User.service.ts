@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { CreateUser } from './../Models/Users/CreateUser';
 import { Injectable } from '@angular/core';
 import { AppConstants } from '../Constants/AppConstants';
@@ -14,7 +14,7 @@ export class UserService {
 
 constructor(private http: HttpClient) { }
 
-  public CreateUserAsync(createUserRequest: CreateUser | undefined)
+  public async CreateUserAsync(createUserRequest: CreateUser | undefined) : Promise<User | null>
   {
     if (createUserRequest === null)
     {
@@ -22,6 +22,8 @@ constructor(private http: HttpClient) { }
     }
     try
     {
+      var user:User | null = null;
+
       var jsonConverter = new JsonConvert();
       var json = jsonConverter.serialize(createUserRequest as CreateUser);
 
@@ -30,12 +32,14 @@ constructor(private http: HttpClient) { }
       var header = new HttpHeaders();
       header.set('Content-Type', 'application/json');
 
-      this.http.post<User>(url, json, { headers : header })
-        .subscribe(response => console.log(response));
+      var result = this.http.post<User>(url, json, { headers : header });
+
+      return await firstValueFrom(result, {defaultValue: null})
 
     } catch (error)
     {
       console.log(error);
+      return null;
     }
   }
 }

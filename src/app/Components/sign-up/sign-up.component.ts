@@ -26,7 +26,7 @@ export class SignUpComponent implements OnInit
     });
   }
 
-  public SugnUp(): any
+  public SignUp(): any
   {
     try
     {
@@ -46,12 +46,15 @@ export class SignUpComponent implements OnInit
         throw new Error("cant create user");
       }
 
+      this.router.navigateByUrl('/login');
+
       let jsonResult = JSON.stringify(result);
       console.log(`User created: ${jsonResult}`);
 
     } catch (error)
     {
       console.log(error);
+      this.router.navigateByUrl('/error');
     }
   }
   ngOnInit(): void {

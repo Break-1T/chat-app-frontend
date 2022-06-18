@@ -1,19 +1,23 @@
-<p>authorization works!</p>
-<form [formGroup]="form">
+<form [formGroup]="form" class="login">
   <fieldset>
-      <legend>Login</legend>
+      <legend>
+        <h1>Login</h1>
+      </legend>
+      <p>Please fill in this form to login.</p>
+      <hr>
       <div class="form-field">
           <label>Email:</label>
-          <input name="email" formControlName="email">
+          <input name="email" formControlName="email" type="email">
       </div>
       <div class="form-field">
           <label>Password:</label>
-          <input name="password" formControlName="password"
-                 type="password">
+          <input name="password" formControlName="password" type="password">
       </div>
   </fieldset>
   <div class="form-buttons">
-      <button class="button button-primary"
-              (click)="login()">Login</button>
+      <button class="signInButton" (click)="login()">Login</button>
   </div>
+  <nav>
+    <p>Don`t have an account? <a class="signup" routerLink="/signup"a>Sign Up</a>.</p>
+  </nav>
 </form>
