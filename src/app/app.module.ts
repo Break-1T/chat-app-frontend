@@ -1,3 +1,4 @@
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,12 +11,14 @@ import { ChatWindowComponent } from './Components/chat_window/chat_window.compon
 import { AuthorizationComponent } from './Components/authorization/authorization.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { ErrorComponent } from './Components/error/error.component';
+import { AuthorizeGuardService } from './services/AuthorizeGuard.service';
 
 const appRoutes: Routes =
 [
+  {path: '', redirectTo: 'login', pathMatch:"full"},
   {path: 'signup', component: SignUpComponent},
   {path: 'login', component: AuthorizationComponent},
-  {path: 'chat', component: ChatWindowComponent},
+  {path: 'chat', component: ChatWindowComponent, canActivate: [AuthorizeGuardService]},
   {path: 'error', component: ErrorComponent},
 
   // {path: '**', component: NotFoundComponent}
@@ -38,7 +41,10 @@ const appRoutes: Routes =
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers:
+  [
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService
+  ],
 bootstrap: [AppComponent]
 })
 export class AppModule { }

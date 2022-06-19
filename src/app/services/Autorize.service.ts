@@ -1,26 +1,91 @@
+import { LoginRequest } from './../Models/Users/LoginRequest';
+import { LocalStorageService } from './local-storage.service';
+import { TokenResponse } from './../Models/TokenResponse';
 import { AppConstants } from './../Constants/AppConstants';
 import { CreateUser } from './../Models/Users/CreateUser';
-import { Inject, inject, Injectable, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { firstValueFrom, lastValueFrom, map, Observable } from 'rxjs';
 import { environment } from './../../environments/environment';
+import { User } from '../Models/Users/User';
+import { JsonConvert } from 'json2typescript';
+import 'reflect-metadata';
 
 @Injectable({
   providedIn: 'any',
 })
 export class AutorizeService
 {
-  public constructor(private http: HttpClient)
+  public constructor(private http: HttpClient, private storage: LocalStorageService)
   {
   }
 
-  public Login(email: any, password: any)
+  public async Login(loginRequest: LoginRequest | null) : Promise<boolean>
   {
-    return this.http.post<CreateUser>('/api/login', {email, password});
+    if (loginRequest === null)
+    {
+      throw new Error("'createUserRequest' has null value!");
+    }
+    try
+    {
+      var url = environment.chatApiUrl.concat(AppConstants.AuthPath);
+
+      var header = new HttpHeaders();
+      header.set('Content-Type', 'application/json');
+
+      var result = this.http.post<string | null>(url, new JsonConvert().serialize(loginRequest), { headers : header });
+      var stringResult = await firstValueFrom(result, { defaultValue: null });
+      var token: TokenResponse = new JsonConvert().deserializeObject(stringResult, TokenResponse);
+
+      if(token === null)
+      {
+        throw new Error();
+      }
+
+      this.storage.set("token", token.AccessToken);
+      return true;
+    } catch (error)
+    {
+      console.log(error);
+      return false;
+    }
   }
 
-  public SignUp(createUserRequset: CreateUser)
+  public Logout() : void
   {
-    return this.http.post<CreateUser>(environment.chatApiUrl + AppConstants.CreateUserPath, JSON.stringify(createUserRequset));
+    try
+    {
+      this.storage.remove("token");
+    } catch (error)
+    {
+      console.log(error);
+    }
+  }
+
+  public async SignUp(createUserRequest: CreateUser | undefined) : Promise<User | null>
+  {
+    if (createUserRequest === null)
+    {
+      throw new Error("'createUserRequest' has null value!");
+    }
+    try
+    {
+      var jsonConverter = new JsonConvert();
+      var json = jsonConverter.serialize(createUserRequest as CreateUser);
+
+      var url = environment.chatApiUrl.concat(AppConstants.CreateUserPath);
+
+      var header = new HttpHeaders();
+      header.set('Content-Type', 'application/json');
+
+      var result = this.http.post<User>(url, json, { headers : header });
+
+      return await firstValueFrom(result, {defaultValue: null});
+
+    } catch (error)
+    {
+      console.log(error);
+      return null;
+    }
   }
 }

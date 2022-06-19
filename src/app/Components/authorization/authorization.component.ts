@@ -1,3 +1,4 @@
+import { LoginRequest } from './../../Models/Users/LoginRequest';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,7 +14,7 @@ export class AuthorizationComponent implements OnInit {
   form:FormGroup;
 
   constructor(private fb:FormBuilder,
-               private authService: AutorizeService,
+               private _authService: AutorizeService,
                private router: Router) {
 
       this.form = this.fb.group({
@@ -22,19 +23,32 @@ export class AuthorizationComponent implements OnInit {
       });
   }
 
-  login() {
-      const val = this.form.value;
+  public async login(): Promise<any>
+  {
+    try
+    {
+      var formValue = this.form.value;
 
-      if (val.email && val.password) {
-          this.authService.Login(val.email, val.password)
-              .subscribe(
-                  () => {
-                      console.log("User is logged in");
-                      this.router.navigateByUrl('/');
-                  }
-              );
+      var loginRequest = new LoginRequest();
+      loginRequest.Email = formValue.email as string;
+      loginRequest.Password = formValue.password as string;
+
+      var result = await this._authService.Login(loginRequest);
+
+      if (result === false)
+      {
+        throw new Error("cant login");
       }
+
+      this.router.navigateByUrl('/chat');
+
+    } catch (error)
+    {
+      console.log(error);
+      this.router.navigateByUrl('/error');
     }
+  }
+
   ngOnInit(): void {
   }
 

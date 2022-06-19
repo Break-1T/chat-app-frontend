@@ -1,8 +1,8 @@
+import { AutorizeService } from 'src/app/services/Autorize.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CreateUser } from 'src/app/Models/Users/CreateUser';
-import { UserService } from 'src/app/services/User.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,7 +14,7 @@ export class SignUpComponent implements OnInit
   form:FormGroup;
 
   constructor(private fb:FormBuilder,
-              private _userService:UserService,
+              private _authService:AutorizeService,
               private router: Router)
   {
     this.form = this.fb.group({
@@ -26,7 +26,7 @@ export class SignUpComponent implements OnInit
     });
   }
 
-  public SignUp(): any
+  public async SignUp(): Promise<any>
   {
     try
     {
@@ -39,7 +39,7 @@ export class SignUpComponent implements OnInit
       createUserRequest.FirstName = formValue.firstName as string;
       createUserRequest.LastName = formValue.lastName as string;
 
-      var result = this._userService.CreateUserAsync(createUserRequest);
+      var result = await this._authService.SignUp(createUserRequest);
 
       if (result === null)
       {
@@ -57,7 +57,7 @@ export class SignUpComponent implements OnInit
       this.router.navigateByUrl('/error');
     }
   }
+
   ngOnInit(): void {
   }
-
 }

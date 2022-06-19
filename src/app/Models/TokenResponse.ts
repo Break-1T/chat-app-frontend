@@ -1,14 +1,21 @@
+import { JsonObject, JsonProperty, PropertyConvertingMode } from 'json2typescript';
 import 'reflect-metadata';
-import { jsonName } from "ts-serializable";
 
+@JsonObject("TokenResponse")
 export class TokenResponse {
 
-  @jsonName("access_token")
-  public AccessToken: string | undefined;
+  @JsonProperty("access_token", String, PropertyConvertingMode.MAP_NULLABLE)
+  public AccessToken: string = "";
 
-  @jsonName("refresh_token")
-  public RefreshToken: string | undefined;
+  @JsonProperty("refresh_token", String, PropertyConvertingMode.MAP_NULLABLE)
+  public RefreshToken: string = "";
 
-  @jsonName("expires_in")
-  public ExpirationTime: number | undefined;
+  @JsonProperty("expires_in", Number, PropertyConvertingMode.MAP_NULLABLE)
+  public ExpiresIn: number = 0;
+
+  @JsonProperty("token_type", String, PropertyConvertingMode.MAP_NULLABLE)
+  public TokenType: string = "";
+
+  @JsonProperty("scope", String, PropertyConvertingMode.MAP_NULLABLE)
+  public Scope: string = "";
 }
