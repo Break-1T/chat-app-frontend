@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom, lastValueFrom, map, Observable } from 'rxjs';
 import { environment } from './../../environments/environment';
 import { User } from '../Models/Users/User';
-import { JsonConvert } from 'json2typescript';
+import { JsonConvert, PropertyMatchingRule } from 'json2typescript';
 import 'reflect-metadata';
 
 @Injectable({
@@ -35,7 +35,7 @@ export class AutorizeService
 
       var result = this.http.post<string | null>(url, new JsonConvert().serialize(loginRequest), { headers : header });
       var stringResult = await firstValueFrom(result, { defaultValue: null });
-      var token: TokenResponse = new JsonConvert().deserializeObject(stringResult, TokenResponse);
+      var token: TokenResponse | null = new JsonConvert().deserializeObject(stringResult, TokenResponse);
 
       if(token === null)
       {

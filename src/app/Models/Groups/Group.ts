@@ -1,18 +1,19 @@
 import 'reflect-metadata';
 import { User } from './../Users/User';
-import { jsonName } from "ts-serializable";
+import { JsonObject, JsonProperty, PropertyConvertingMode } from 'json2typescript';
 
+@JsonObject("Group")
 export class Group
 {
-  @jsonName("group_id")
-  public GroupId!: string | null;
+  @JsonProperty("group_id", String, PropertyConvertingMode.PASS_NULLABLE)
+  public GroupId: string | null = "";
 
-  @jsonName("group_name")
-  public GroupName!: string | null;
+  @JsonProperty("group_name", String, PropertyConvertingMode.PASS_NULLABLE)
+  public GroupName: string | null = "";
 
-  @jsonName("group_image")
-  public GroupImage!: Uint8Array | null;
+  @JsonProperty("group_image", String, PropertyConvertingMode.PASS_NULLABLE)
+  public GroupImage: string | null = "";
 
-  @jsonName("users")
-  public Users!: Array<User> | null;
+  @JsonProperty("users", [User], PropertyConvertingMode.PASS_NULLABLE)
+  public Users: User[] | null = Array<User>();
 }

@@ -1,3 +1,5 @@
+import { GroupService } from './../../services/Group.service';
+import { Group } from './../../Models/Groups/Group';
 import { Router } from '@angular/router';
 import { AutorizeService } from 'src/app/services/Autorize.service';
 import { Component } from "@angular/core";
@@ -14,14 +16,27 @@ export class ChatWindowComponent implements OnInit{
     message: string = "";
     userName:string = "";
 
+    public Groups!: Array<Group> | null;
     /**
      *
      */
     constructor(private authService: AutorizeService,
-      private router: Router) {
+                private router: Router,
+                private groupService: GroupService)
+    {
     }
 
-    ngOnInit(){
+    SelectGroup(event:any, selectedGroup:Group){
+      console.log(selectedGroup.GroupName);
+    }
+
+    async ngOnInit(){
+
+      (async () => {
+        var groups: Array<Group> | null = await this.groupService.GetGroups();
+
+        this.Groups = groups;
+      })();
     }
 
     Chat:ChatService | undefined;

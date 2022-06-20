@@ -12,6 +12,9 @@ import { AuthorizationComponent } from './Components/authorization/authorization
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { ErrorComponent } from './Components/error/error.component';
 import { AuthorizeGuardService } from './services/AuthorizeGuard.service';
+import { HeaderNavComponent } from './Components/header-nav/header-nav.component';
+import { UserSettingComponent } from './Components/user-setting/user-setting.component';
+import { GroupComponent } from './Components/group/group.component';
 
 const appRoutes: Routes =
 [
@@ -19,6 +22,7 @@ const appRoutes: Routes =
   {path: 'signup', component: SignUpComponent},
   {path: 'login', component: AuthorizationComponent},
   {path: 'chat', component: ChatWindowComponent, canActivate: [AuthorizeGuardService]},
+  {path: 'settings', component: UserSettingComponent, canActivate: [AuthorizeGuardService]},
   {path: 'error', component: ErrorComponent},
 
   // {path: '**', component: NotFoundComponent}
@@ -31,6 +35,9 @@ const appRoutes: Routes =
     AuthorizationComponent,
     SignUpComponent,
     ErrorComponent,
+    HeaderNavComponent,
+    UserSettingComponent,
+    GroupComponent,
   ],
   imports: [
     BrowserModule,

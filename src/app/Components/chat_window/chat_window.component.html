@@ -1,3 +1,4 @@
+<app-header-nav></app-header-nav>
 <div class="chat_window">
     <label for="groupIdInput">Enter GroupId</label>
     <input class="chat.input" name="groupIdInput" type="text" [(ngModel)]="groupId">
@@ -13,4 +14,13 @@
 </div>
 <div>
   <button (click)="Logout()">Logout</button>
+</div>
+<div class = "contaniner">
+  <div class="groups">
+    <ul>
+      <li *ngFor="let group of Groups">
+        <app-group [Group]=group (click)="SelectGroup($event, group)"></app-group>
+      </li>
+    </ul>
+  </div>
 </div>
