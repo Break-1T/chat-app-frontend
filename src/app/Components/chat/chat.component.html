@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="messages">
+    <ul style="list-style: none; margin: 0; padding: 0;">
+      <li *ngFor="let el of array">
+        <app-chat-message [profile]="el" [message]="el" [time]="el"></app-chat-message>
+      </li>
+    </ul>
+  </div>
+  <div class="send">
+    <form>
+      <input type="text">
+      <button>Send</button>
+    </form>
+  </div>
+</div>

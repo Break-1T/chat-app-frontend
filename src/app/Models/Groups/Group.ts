@@ -6,7 +6,7 @@ import { JsonObject, JsonProperty, PropertyConvertingMode } from 'json2typescrip
 export class Group
 {
   @JsonProperty("group_id", String, PropertyConvertingMode.PASS_NULLABLE)
-  public GroupId: string | null = "";
+  public GroupId: string | null = null;
 
   @JsonProperty("group_name", String, PropertyConvertingMode.PASS_NULLABLE)
   public GroupName: string | null = "";

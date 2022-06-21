@@ -1,29 +1,33 @@
-* {box-sizing: border-box}
+/* * {box-sizing: border-box} */
 
 .container{
-  text-align: center;
   border: 1px solid black;
-  background-color: antiquewhite;
+  background-color: #7892b3;
+  color: whitesmoke;
   cursor: pointer;
   overflow: hidden;
   max-height: 50px;
-  height: 50px;
-  width: 100%;
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
   justify-content: center;
+  align-items: center;
+  vertical-align: middle;
 }
+
+.container:hover{
+  background-color: #5084c7;
+}
+
 .container img{
-  display: flex;
-  float: left;
-  height: 100%;
+  display: grid;
+  grid-column: 1;
   border-radius: 50%;
-  margin: 1%;
-  padding: auto;
+  height: 40px;
+  width: 40px;
 }
 
 .container p{
-  display: flex;
+  display: grid;
+  grid-column: 2;
   font-size: larger;
-  border: 1px solid black;
 }

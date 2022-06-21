@@ -1,11 +1,12 @@
-import { GroupService } from './../../services/Group.service';
-import { Group } from './../../Models/Groups/Group';
-import { Router } from '@angular/router';
-import { AutorizeService } from 'src/app/services/Autorize.service';
 import { Component } from "@angular/core";
-import { ChatService } from "src/app/services/chat.service";
-import { HttpClient } from '@angular/common/http';
 import { OnInit } from "@angular/core";
+import { Router } from '@angular/router';
+
+import { ChatService } from "src/app/services/chat.service";
+import { GroupService } from '../../services/Group.service';
+import { Group } from '../../Models/Groups/Group';
+import { AutorizeService } from 'src/app/services/Autorize.service';
+
 @Component({
     selector:"app-chat-window",
     templateUrl:"./chat_window.component.html",

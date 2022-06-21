@@ -5,7 +5,7 @@ import {JsonProperty, JsonObject, PropertyConvertingMode} from "json2typescript"
 export class User
 {
   @JsonProperty("id", String, PropertyConvertingMode.PASS_NULLABLE)
-  public Id: string | null = "";
+  public Id: string | null = null;
 
   @JsonProperty("first_name", String, PropertyConvertingMode.PASS_NULLABLE)
   public FirstName: string | null = "";

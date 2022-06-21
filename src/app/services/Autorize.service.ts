@@ -1,3 +1,4 @@
+import { User } from './../Models/Users/User';
 import { LoginRequest } from './../Models/Users/LoginRequest';
 import { LocalStorageService } from './local-storage.service';
 import { TokenResponse } from './../Models/TokenResponse';
@@ -7,7 +8,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom, lastValueFrom, map, Observable } from 'rxjs';
 import { environment } from './../../environments/environment';
-import { User } from '../Models/Users/User';
 import { JsonConvert, PropertyMatchingRule } from 'json2typescript';
 import 'reflect-metadata';
 
@@ -30,8 +30,9 @@ export class AutorizeService
     {
       var url = environment.chatApiUrl.concat(AppConstants.AuthPath);
 
-      var header = new HttpHeaders();
-      header.set('Content-Type', 'application/json');
+      var header = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
 
       var result = this.http.post<string | null>(url, new JsonConvert().serialize(loginRequest), { headers : header });
       var stringResult = await firstValueFrom(result, { defaultValue: null });
@@ -75,12 +76,21 @@ export class AutorizeService
 
       var url = environment.chatApiUrl.concat(AppConstants.CreateUserPath);
 
-      var header = new HttpHeaders();
-      header.set('Content-Type', 'application/json');
+      var header = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
 
-      var result = this.http.post<User>(url, json, { headers : header });
+      var result = this.http.post<string | null>(url, json, { headers : header });
+      var stringResult = await firstValueFrom(result, { defaultValue: null });
 
-      return await firstValueFrom(result, {defaultValue: null});
+      var user: User = new JsonConvert().deserializeObject(stringResult, User);
+
+      if(user === null)
+      {
+        throw new Error();
+      }
+
+      return user;
 
     } catch (error)
     {

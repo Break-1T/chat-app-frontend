@@ -7,14 +7,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ChatWindowComponent } from './Components/chat_window/chat_window.component';
-import { AuthorizationComponent } from './Components/authorization/authorization.component';
-import { SignUpComponent } from './Components/sign-up/sign-up.component';
-import { ErrorComponent } from './Components/error/error.component';
+import { ChatWindowComponent } from './pages/chat_window/chat_window.component';
+import { AuthorizationComponent } from './pages/authorization/authorization.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { ErrorComponent } from './pages/error/error.component';
 import { AuthorizeGuardService } from './services/AuthorizeGuard.service';
 import { HeaderNavComponent } from './Components/header-nav/header-nav.component';
-import { UserSettingComponent } from './Components/user-setting/user-setting.component';
+import { UserSettingComponent } from './pages/user-setting/user-setting.component';
 import { GroupComponent } from './Components/group/group.component';
+import { ChatComponent } from './Components/chat/chat.component';
+import { ChatMessageComponent } from './Components/chat-message/chat-message.component';
 
 const appRoutes: Routes =
 [
@@ -38,6 +40,8 @@ const appRoutes: Routes =
     HeaderNavComponent,
     UserSettingComponent,
     GroupComponent,
+    ChatComponent,
+    ChatMessageComponent,
   ],
   imports: [
     BrowserModule,
