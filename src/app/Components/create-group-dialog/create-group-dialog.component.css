@@ -1,0 +1,26 @@
+* {box-sizing: border-box}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.myfilebrowser mat-toolbar
+{
+  float: inline-start;
+}
+
+.myfilebrowser mat-toolbar mat-label
+{
+  float: inline-start;
+}
+
+#fileUpload {
+  position: absolute;
+  z-index: 9;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+  cursor: pointer;
+}

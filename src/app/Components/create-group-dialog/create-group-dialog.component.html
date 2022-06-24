@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Create Group</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Group Name</mat-label>
+    <input matInput [(ngModel)]="Group.GroupName">
+  </mat-form-field>
+  <mat-form-field>
+    <div class="myfilebrowser">
+      <mat-toolbar>
+        <mat-label>Group Photo: </mat-label>
+        <input matInput readonly/>
+        <img mat-image src="data:image/jpeg;base64,{{Group.GroupImage}}" style="height: 50px;">
+      </mat-toolbar>
+      <!-- Fetch selected filed on change -->
+      <input type="file" #UploadFileInput id="fileUpload" (change)="onUploadChange($event)" name="fileUpload" accept="image/*" />
+    </div>
+</mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onClickCreate($event)">Create</button>
+</mat-dialog-actions>

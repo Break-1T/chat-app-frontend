@@ -5,6 +5,7 @@ import { JsonObject, JsonProperty, PropertyConvertingMode } from 'json2typescrip
 @JsonObject("Group")
 export class Group
 {
+  constructor() {}
   @JsonProperty("group_id", String, PropertyConvertingMode.PASS_NULLABLE)
   public GroupId: string | null = null;
 
@@ -15,5 +16,5 @@ export class Group
   public GroupImage: string | null = "";
 
   @JsonProperty("users", [User], PropertyConvertingMode.PASS_NULLABLE)
-  public Users: User[] | null = Array<User>();
+  public Users: User[] | null = null;
 }

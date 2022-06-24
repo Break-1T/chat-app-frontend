@@ -1,3 +1,4 @@
+import { CreateGroupDialogComponent } from './../../Components/create-group-dialog/create-group-dialog.component';
 import { Component } from "@angular/core";
 import { OnInit } from "@angular/core";
 import { Router } from '@angular/router';
@@ -6,6 +7,7 @@ import { ChatService } from "src/app/services/chat.service";
 import { GroupService } from '../../services/Group.service';
 import { Group } from '../../Models/Groups/Group';
 import { AutorizeService } from 'src/app/services/Autorize.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector:"app-chat-window",
@@ -18,17 +20,26 @@ export class ChatWindowComponent implements OnInit{
     userName:string = "";
 
     public Groups!: Array<Group> | null;
-    /**
-     *
-     */
-    constructor(private authService: AutorizeService,
-                private router: Router,
-                private groupService: GroupService)
+
+    constructor(private groupService: GroupService,
+                public dialog: MatDialog)
     {
     }
 
     SelectGroup(event:any, selectedGroup:Group){
       console.log(selectedGroup.GroupName);
+    }
+
+    openCreateGroupDialog()
+    {
+      var dialogRef = this.dialog.open(CreateGroupDialogComponent);
+      dialogRef.afterClosed().subscribe(async component =>
+        {
+            if(dialogRef.componentInstance.GroupAdded)
+            {
+                this.Groups = await this.groupService.GetGroups();;
+            }
+        });
     }
 
     async ngOnInit(){
@@ -51,10 +62,5 @@ export class ChatWindowComponent implements OnInit{
 
     SendMessage(){
         this.Chat?.SendMessage(this.userName, this.message);
-    }
-
-    async Logout(){
-      this.authService.Logout();
-      this.router.navigateByUrl("/login");
     }
 }
