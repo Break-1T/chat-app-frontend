@@ -1,4 +1,5 @@
+import { User } from './Users/User';
 export interface ResponseMessage{
-    userName: string
-    message: string
+    user: User;
+    message: string;
 }

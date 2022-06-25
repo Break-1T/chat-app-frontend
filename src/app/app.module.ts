@@ -1,3 +1,4 @@
+import { ChatService } from 'src/app/services/chat.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -72,7 +73,7 @@ const appRoutes: Routes =
   ],
   providers:
   [
-    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService, ChatService
   ],
 bootstrap: [AppComponent]
 })

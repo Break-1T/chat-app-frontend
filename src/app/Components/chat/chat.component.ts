@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Group } from './../../Models/Groups/Group';
+import { ChatService } from './../../services/chat.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { ResponseMessage } from 'src/app/Models/ResponseMessage';
 
 @Component({
   selector: 'app-chat',
@@ -7,15 +10,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _chatService: ChatService) { }
 
-  public array! : Array<string> | null;
+  @Input()
+  public Group:Group | undefined = undefined;
+
+  public message: string = "";
+  public array! : Array<ResponseMessage> | null;
+
+  async sendMessageClick(evt:any)
+  {
+    await this._chatService.SendMessage(this.message);
+    this.message = "";
+  }
+
+//  async enterCLick(evt:any)
+//  {
+//     // if(evt.key === "Enter")
+//     // {
+//     //   await this.SendMessage(this.message)
+//     // }
+//  }
 
   ngOnInit(){
 
-      this.array = new Array(
-        "message_1", "message_2", "message_3", "message_4", "message_5"
-      );
+      this.array = this._chatService.messages;
   }
 
 }

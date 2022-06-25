@@ -15,18 +15,28 @@ import { MatDialog } from '@angular/material/dialog';
     styleUrls:["./chat_window.component.css"],
 })
 export class ChatWindowComponent implements OnInit{
-    groupId:string = "";
-    message: string = "";
-    userName:string = "";
-
     public Groups!: Array<Group> | null;
+    public SelectedGroup: Group | undefined = undefined;
 
     constructor(private groupService: GroupService,
+                private chatService: ChatService,
                 public dialog: MatDialog)
     {
     }
 
-    SelectGroup(event:any, selectedGroup:Group){
+    async SelectGroup(event:any, selectedGroup:Group): Promise<any>
+    {
+      this.chatService.disconnect();
+
+      this.SelectedGroup = selectedGroup;
+      var result = await this.chatService.TryEnterGroup(selectedGroup.GroupId as string);
+
+      if (result === null)
+      {
+        return;
+      }
+
+      await this.chatService.CreateConnection();
       console.log(selectedGroup.GroupName);
     }
 
@@ -49,18 +59,5 @@ export class ChatWindowComponent implements OnInit{
 
         this.Groups = groups;
       })();
-    }
-
-    Chat:ChatService | undefined;
-
-    StartConnection()
-    {
-        this.Chat = new ChatService(this.groupId, this.userName);
-        this.Chat.CreateConnection();
-        this.Chat?.start();
-    }
-
-    SendMessage(){
-        this.Chat?.SendMessage(this.userName, this.message);
     }
 }
