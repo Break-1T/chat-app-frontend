@@ -1,23 +1,22 @@
-<form [formGroup]="form" class="login">
-  <fieldset>
-      <legend>
-        <h1>Login</h1>
-      </legend>
-      <p>Please fill in this form to login.</p>
-      <hr>
-      <div class="form-field">
-          <label>Email:</label>
-          <input name="email" formControlName="email" type="email">
-      </div>
-      <div class="form-field">
-          <label>Password:</label>
-          <input name="password" formControlName="password" type="password">
-      </div>
-  </fieldset>
-  <div class="form-buttons">
-      <button class="signInButton" (click)="login()">Login</button>
-  </div>
-  <nav>
-    <p>Don`t have an account? <a class="signup" routerLink="/signup"a>Sign Up</a>.</p>
-  </nav>
-</form>
+<div class="login">
+  <h2 mat-dialog-title>Login</h2>
+  <hr>
+  <p mat-dialog-title>Please fill in this form to login.</p>
+  <mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label>User Name</mat-label>
+      <input matInput [(ngModel)]="LoginRequest.UserName" placeholder="Enter email" type="email">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput [(ngModel)]="LoginRequest.Password" placeholder="Enter password" type="password">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button class="loginButton" (click)="login($event)">Login</button>
+    <nav>
+      <p mat-dialog-title style="font-size:medium;">Don`t have an account? <a class="signup" routerLink="/signup"a>Sign Up</a>.</p>
+    </nav>
+  </mat-dialog-actions>
+</div>
+

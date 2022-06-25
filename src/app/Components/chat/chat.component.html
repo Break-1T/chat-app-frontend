@@ -1,12 +1,12 @@
 <p>{{Group?.GroupName}}</p>
 <div class="container">
-  <div class="messages">
+  <mat-dialog-content class="messages">
     <ul style="list-style: none; margin: 0; padding: 0;">
       <li *ngFor="let el of array">
         <app-chat-message [profile]="el.user.Photo" [message]="el.message" [time]="el.message"></app-chat-message>
       </li>
     </ul>
-  </div>
+  </mat-dialog-content>
   <div class="send">
     <form>
       <input type="text" name="message" [(ngModel)]="message">

@@ -1,31 +1,18 @@
-<!-- <div class="chat_window">
-    <label for="groupIdInput">Enter GroupId</label>
-    <input class="chat.input" name="groupIdInput" type="text" [(ngModel)]="groupId">
-    <br>
-    <label for="userNameInput">Enter UserName</label>
-    <input class="chat.input" name="userNameInput" type="text" [(ngModel)]="userName">
-    <br>
-    <button (click)="StartConnection()">StartConnection</button>
-    <br>
-    <input name="message" type="text" [(ngModel)]="message">
-    <button (click)="SendMessage()">SendMessage</button>
-    <strong>{{ Chat?.messages | json }}</strong>
-</div> -->
 <div class="container">
   <app-header-nav></app-header-nav>
   <div class="main-page">
-    <div class="groups">
-      <div class="group-list">
-        <ul style="list-style: none; margin: 0; padding: 0;">
-          <li *ngFor="let group of Groups">
-            <app-group [Group]=group (click)="SelectGroup($event, group)"></app-group>
-          </li>
-        </ul>
+      <div class="groups">
+        <mat-dialog-content class="group-list">
+          <ul style="list-style: none; margin: 0; padding: 0;">
+            <li *ngFor="let group of Groups">
+              <app-group [Group]=group (click)="SelectGroup($event, group)"></app-group>
+            </li>
+          </ul>
+        </mat-dialog-content>
+      <button mat-button (click)="openCreateGroupDialog()">Create Group</button>
       </div>
-    <button mat-button (click)="openCreateGroupDialog()">Create Group</button>
-    </div>
-    <div class="chat">
-      <app-chat [Group]="SelectedGroup"></app-chat>
-    </div>
-</div>
+      <div class="chat">
+        <app-chat [Group]="SelectedGroup"></app-chat>
+      </div>
+  </div>
 </div>

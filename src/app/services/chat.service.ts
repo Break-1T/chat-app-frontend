@@ -80,9 +80,11 @@ export class ChatService {
       .configureLogging(signalR.LogLevel.Information)
       .build();
 
-      this.hubConnection.onclose(async () => {
-      await this.start();
-    });
+      // this.hubConnection.onclose(async () =>
+      // {
+      //   await this.start();
+      // });
+
     this.hubConnection.on("SendMessage", (userName: User, message:string) => this.mapReceivedMessage(userName, message));
 
     this.start();
@@ -115,6 +117,7 @@ export class ChatService {
 
   public async disconnect()
   {
+    this.messages.splice(0);
     await this.hubConnection?.stop();
   }
 }

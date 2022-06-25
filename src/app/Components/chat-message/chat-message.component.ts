@@ -20,7 +20,7 @@ export class ChatMessageComponent implements OnInit {
   public time!: string | null;
 
   ngOnInit(): void {
-    // this.profile = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this.Group.GroupImage);
+    this.profile = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this.profile);
   }
 
 }

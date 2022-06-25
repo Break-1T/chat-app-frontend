@@ -24,16 +24,8 @@ export class ChatComponent implements OnInit {
     this.message = "";
   }
 
-//  async enterCLick(evt:any)
-//  {
-//     // if(evt.key === "Enter")
-//     // {
-//     //   await this.SendMessage(this.message)
-//     // }
-//  }
-
-  ngOnInit(){
-
+  ngOnInit()
+  {
       this.array = this._chatService.messages;
   }
 

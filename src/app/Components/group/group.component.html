@@ -1,4 +1,11 @@
-<div class="container">
-  <img [src]="imagePath">
-  <p>{{Group.GroupName}}</p>
-</div>
+<mat-dialog-content>
+  <mat-form-field>
+    <div class="myfilebrowser">
+      <mat-toolbar>
+        <img [src]="imagePath">
+        <input matInput readonly/>
+        <mat-label>{{Group.GroupName}}</mat-label>
+      </mat-toolbar>
+    </div>
+  </mat-form-field>
+</mat-dialog-content>

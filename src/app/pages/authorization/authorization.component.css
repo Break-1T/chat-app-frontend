@@ -1,33 +1,14 @@
-* {box-sizing: border-box}
-
 /* Set a grey background color and center the text of the "sign in" section */
 .login {
-  /* background-color: #f1f1f1; */
   text-align: center;
-  padding-top: 1%;
-  padding-left: 25%;
-  padding-right: 25%;
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+  width: 50%;
 }
 
-/* Full-width input fields */
-input[type=text], input[type=password], input[type=email] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-
-input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-/* Overwrite default styles of label */
-label{
-  float: left;
-}
 
 /* Overwrite default styles of hr */
 hr {
@@ -35,24 +16,42 @@ hr {
   margin-bottom: 25px;
 }
 
-/* Set a style for the submit/register button */
-.signInButton {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-  border-radius: 10px;
-}
-
-.signInButton:hover {
-  opacity:1;
-}
-
 /* Add a blue text color to links */
 a {
   color: dodgerblue;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.myfilebrowser mat-toolbar
+{
+  float: inline-start;
+}
+
+.myfilebrowser mat-toolbar mat-label
+{
+  float: inline-start;
+}
+
+#fileUpload {
+  position: absolute;
+  z-index: 9;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+  cursor: pointer;
+}
+
+/* Set a style for the submit/register button */
+.loginButton {
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  width: 100%;
+  opacity: 0.9;
+  border-radius: 10px;
 }

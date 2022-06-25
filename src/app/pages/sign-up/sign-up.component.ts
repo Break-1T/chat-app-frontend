@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CreateUser } from 'src/app/Models/Users/CreateUser';
+import { User } from 'src/app/Models/Users/User';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,35 +12,18 @@ import { CreateUser } from 'src/app/Models/Users/CreateUser';
 })
 export class SignUpComponent implements OnInit
 {
-  form:FormGroup;
+  public User:CreateUser = new CreateUser();
 
-  constructor(private fb:FormBuilder,
-              private _authService:AutorizeService,
+  constructor(private _authService:AutorizeService,
               private router: Router)
   {
-    this.form = this.fb.group({
-      email: ['',Validators.required],
-      password: ['',Validators.required],
-      userName: ['',Validators.required],
-      firstName: ['',Validators.required],
-      lastName: ['',Validators.required],
-    });
-  }
+  };
 
-  public async SignUp(): Promise<any>
+  public async SignUp(evt:any): Promise<any>
   {
     try
     {
-      var formValue = this.form.value;
-
-      var createUserRequest = new CreateUser();
-      createUserRequest.Email = formValue.email as string;
-      createUserRequest.Password = formValue.password as string;
-      createUserRequest.UserName = formValue.userName as string;
-      createUserRequest.FirstName = formValue.firstName as string;
-      createUserRequest.LastName = formValue.lastName as string;
-
-      var result = await this._authService.SignUp(createUserRequest);
+      var result = await this._authService.SignUp(this.User);
 
       if (result === null)
       {
@@ -58,6 +42,27 @@ export class SignUpComponent implements OnInit
     }
   }
 
-  ngOnInit(): void {
+  onUploadChange(evt: any) {
+    const file = evt.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  handleReaderLoaded(e: any)
+  {
+    this.User.Photo = btoa(e.target.result);
+  }
+
+  async ngOnInit(): Promise<any>
+  {
+    var response = await fetch('/assets/default_user_image.jpg');
+    const reader = new FileReader();
+    reader.onload = this.handleReaderLoaded.bind(this);
+    reader.readAsBinaryString(await response.blob());
   }
 }

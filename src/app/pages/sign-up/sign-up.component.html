@@ -1,35 +1,45 @@
-<form [formGroup]="form" class="signin">
-  <fieldset>
-      <legend>
-        <h1>Register</h1>
-      </legend>
-      <p>Please fill in this form to create an account.</p>
-      <hr>
-      <div class="form-field">
-          <label>Email:</label>
-          <input name="email" formControlName="email" type="email" placeholder="Enter email">
+<div class="signin">
+  <h2 mat-dialog-title>Register</h2>
+  <hr>
+  <p mat-dialog-title>Please fill in this form to create an account.</p>
+  <mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="User.Email" placeholder="Enter email" type="email">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput [(ngModel)]="User.Password" placeholder="Enter password" type="password">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>User Name</mat-label>
+      <input matInput [(ngModel)]="User.UserName" placeholder="Enter user name" type="text">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput [(ngModel)]="User.FirstName" placeholder="Enter First Name" type="text">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput [(ngModel)]="User.LastName" placeholder="Enter Last Name" type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <div class="myfilebrowser">
+        <mat-toolbar>
+          <mat-label>Photo: </mat-label>
+          <input matInput readonly/>
+          <img mat-image src="data:image/jpeg;base64,{{User.Photo}}" style="height: 50px;">
+        </mat-toolbar>
+        <!-- Fetch selected filed on change -->
+        <input type="file" #UploadFileInput id="fileUpload" (change)="onUploadChange($event)" name="fileUpload" accept="image/*" />
       </div>
-      <div class="form-field">
-          <label>Password:</label>
-          <input name="password" formControlName="password" type="password" placeholder="Enter password">
-      </div>
-      <div class="form-field">
-          <label>UserName:</label>
-          <input name="userName" formControlName="userName" type="text" placeholder="Enter user name">
-      </div>
-      <div div class="form-field">
-          <label>First name:</label>
-          <input name="firstName" formControlName="firstName" type="text" placeholder="Enter First Name">
-      </div>
-      <div class="form-field">
-          <label>Last name:</label>
-          <input name="lastName" formControlName="lastName" type="text" placeholder="Enter Last Name">
-      </div>
-  </fieldset>
-  <div class="form-buttons">
-      <button class="registerButton" (click)="SignUp()">Sign Up</button>
-  </div>
-  <nav>
-    <p>Already have an account? <a class="login" routerLink="/login"a>Login</a>.</p>
-  </nav>
-</form>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button class="registerButton" (click)="SignUp($event)">Sign Up</button>
+    <nav>
+      <p mat-dialog-title style="font-size:medium;">Already have an account? <a class="login" routerLink="/login"a>Login</a>.</p>
+    </nav>
+  </mat-dialog-actions>
+</div>
+
