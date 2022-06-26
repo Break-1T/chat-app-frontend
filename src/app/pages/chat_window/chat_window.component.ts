@@ -15,7 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
     styleUrls:["./chat_window.component.css"],
 })
 export class ChatWindowComponent implements OnInit{
-    public Groups!: Array<Group> | null;
+    public Groups: Array<Group> | null = new Array<Group>();
     public SelectedGroup: Group | undefined = undefined;
 
     constructor(private groupService: GroupService,
@@ -47,7 +47,15 @@ export class ChatWindowComponent implements OnInit{
         {
             if(dialogRef.componentInstance.GroupAdded)
             {
-                this.Groups = await this.groupService.GetGroups();;
+              this.Groups?.splice(0);
+
+              var result = await this.groupService.GetGroups();
+
+              if(result === null){
+                result = new Array<Group>();
+              }
+
+              result.forEach(x => this.Groups?.push(x))
             }
         });
     }

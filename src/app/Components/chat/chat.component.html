@@ -1,4 +1,5 @@
-<p>{{Group?.GroupName}}</p>
+<mat-label>{{Group?.GroupName}}</mat-label>
+<button mat-flat-button (click)="leaveGroupClick($event)" *ngIf="Group !== undefined">Leave Group</button>
 <div class="container">
   <mat-dialog-content class="messages">
     <ul style="list-style: none; margin: 0; padding: 0;">

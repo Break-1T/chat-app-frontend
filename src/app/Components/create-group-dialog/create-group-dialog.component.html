@@ -15,6 +15,21 @@
       <input type="file" #UploadFileInput id="fileUpload" (change)="onUploadChange($event)" name="fileUpload" accept="image/*" />
     </div>
 </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Users</mat-label>
+    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (onSelectionChange)="onAddUser($event, option)">
+        {{option.UserName}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+<p mat-dialog-title>Added users:</p>
+<ul>
+  <li *ngFor="let user of Group.Users" [value]="user">
+    <p>{{user.UserName}}</p>
+  </li>
+</ul>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>

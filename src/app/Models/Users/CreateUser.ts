@@ -6,11 +6,8 @@ import {JsonProperty, JsonObject, PropertyConvertingMode} from "json2typescript"
 export class CreateUser extends User
 {
   @JsonProperty("email", String, PropertyConvertingMode.MAP_NULLABLE)
-  public Email!: string;
-
-  @JsonProperty("user_name", String, PropertyConvertingMode.MAP_NULLABLE)
-  public UserName!: string;
+  public Email: string = "";
 
   @JsonProperty("password", String, PropertyConvertingMode.MAP_NULLABLE)
-  public Password!: string;
+  public Password: string = ""
 }

@@ -10,13 +10,21 @@ import { ResponseMessage } from 'src/app/Models/ResponseMessage';
 })
 export class ChatComponent implements OnInit {
 
-  constructor(private _chatService: ChatService) { }
+  constructor(private _chatService: ChatService)
+  {
+  }
 
   @Input()
   public Group:Group | undefined = undefined;
 
   public message: string = "";
   public array! : Array<ResponseMessage> | null;
+  public leaveVisibility: string = "";
+
+  async leaveGroupClick(evt:any): Promise<any>
+  {
+    await this._chatService.TryLeaveGroup();
+  }
 
   async sendMessageClick(evt:any)
   {
@@ -26,7 +34,8 @@ export class ChatComponent implements OnInit {
 
   ngOnInit()
   {
-      this.array = this._chatService.messages;
+    this.leaveVisibility = `visibility: ${this.Group === undefined ? "hidden;" : "visible;"}`;
+    this.array = this._chatService.messages;
   }
 
 }

@@ -69,6 +69,40 @@ export class ChatService {
     }
   }
 
+  public async TryLeaveGroup() : Promise<boolean>
+  {
+    try
+    {
+      var url = environment.chatApiUrl.concat(AppConstants.LeaveGroupPath.replace("{{group_id}}", this.groupId as string));
+
+      var token = this._localStorage.get("token");
+      if(token === null)
+      {
+        throw new Error("NotAutorized");
+      }
+
+      var header = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      });
+
+      var result = this._httpClient.post<string | null>(url, null, { headers : header });
+      var stringResult = await firstValueFrom(result, { defaultValue: null});
+
+      if (stringResult)
+      {
+        return false;
+      }
+
+      return true;
+
+    } catch (error)
+    {
+      console.log(error);
+      return false;
+    }
+  }
+
   public async CreateConnection()
   {
     var url = environment.hubConnectionURL.replace("{{groupId}}", this.groupId as string);

@@ -15,4 +15,7 @@ export class User
 
   @JsonProperty("photo", String, PropertyConvertingMode.PASS_NULLABLE)
   public Photo: string | null = "";
+
+  @JsonProperty("user_name", String, PropertyConvertingMode.MAP_NULLABLE)
+  public UserName: string = "";
 }
