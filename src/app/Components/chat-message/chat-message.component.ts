@@ -10,8 +10,10 @@ export class ChatMessageComponent implements OnInit {
 
   constructor(private _sanitizer: DomSanitizer) { }
 
+  public profileImg!: SafeResourceUrl | null;
+
   @Input()
-  public profile!: SafeResourceUrl | null;
+  public profile!: string | null;
 
   @Input()
   public message!: string | null;
@@ -20,7 +22,7 @@ export class ChatMessageComponent implements OnInit {
   public time!: string | null;
 
   ngOnInit(): void {
-    this.profile = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this.profile);
+    this.profileImg = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this.profile);
   }
 
 }
