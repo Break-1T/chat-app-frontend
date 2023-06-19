@@ -107,17 +107,9 @@ export class ChatService {
   {
     var url = environment.hubConnectionURL.replace("{{groupId}}", this.groupId as string);
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(environment.hubConnectionURL.replace("{{groupId}}", this.groupId as string),
-      {
-        // accessTokenFactory: () => this._localStorage.get("token") as string
-      })
+      .withUrl(environment.hubConnectionURL.replace("{{groupId}}", this.groupId as string))
       .configureLogging(signalR.LogLevel.Information)
       .build();
-
-      // this.hubConnection.onclose(async () =>
-      // {
-      //   await this.start();
-      // });
 
     this.hubConnection.on("SendMessage", (userName: User, message:string) => this.mapReceivedMessage(userName, message));
 
@@ -129,7 +121,7 @@ export class ChatService {
      await this.hubConnection?.send("SendMessage", this.User, message as string);
   }
 
-  // Strart the connection
+  // Start the connection
   public async start()
   {
     try
@@ -152,6 +144,7 @@ export class ChatService {
   public async disconnect()
   {
     this.messages.splice(0);
+    
     await this.hubConnection?.stop();
   }
 }
